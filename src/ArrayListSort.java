@@ -4,7 +4,8 @@ import java.util.Collections;
 public class ArrayListSort extends SortAlgorithm{
 
     public ArrayListSort (ArrayList<String> input) {
-        sortedArrayList = new ArrayList<String>(Collections.sort(input));
+        Collections.sort(input);
+        sortedArrayList = input;
     }
 
 }
