@@ -10,18 +10,16 @@ public class FileInput {
     private Scanner directorySArrayList;
     private Scanner findS2DArray;
     private Scanner directoryS2DArray;
-//    private File find;
-//    private File directory;
     private ArrayList<String> findArrayList = new ArrayList<>();
     private ArrayList<String> directoryArrayList = new ArrayList<>();
     private String[][] find2DArray;
     private String[][] directory2DArray;
     private int directoryLineCount = 0;
     private int findLineCount = 0;
+    private long inputMillis;
 
     public FileInput(File find, File directory) {
-//        this.find = find;
-//        this.directory = directory;
+        long startMillis = System.currentTimeMillis();
         try {
             findSCount = new Scanner(find);
             directorySCount = new Scanner(directory);
@@ -34,10 +32,12 @@ public class FileInput {
             System.out.println("FileNotFoundException");
         }
         countLines();
-//        createArrayLists();
+        createArrayLists();
         create2DArrays();
-//        print2DArrays(find2DArray);
-//        print2DArrays(directory2DArray);
+//        print2DArrays(find2DArray); // TEST
+//        print2DArrays(directory2DArray); // TEST
+        long endMillis = System.currentTimeMillis();
+        inputMillis = endMillis - startMillis;
     }
 
     private void countLines() {
@@ -49,8 +49,8 @@ public class FileInput {
             directorySCount.nextLine();
             directoryLineCount++;
         }
-        System.out.println("findLindCount: " + findLineCount);
-        System.out.println("directoryLineCount " + directoryLineCount);
+//        System.out.println("findLineCount: " + findLineCount); // TEST
+//        System.out.println("directoryLineCount " + directoryLineCount); // TEST
     }
 
     private void createArrayLists() {
@@ -67,7 +67,7 @@ public class FileInput {
         directory2DArray = new String[directoryLineCount][3]; // number, first and last name, sometimes just a last name
         int findLineIndex = 0;
         while (findS2DArray.hasNext()) {
-//            System.out.println(findS2DArray.nextLine());
+//            System.out.println(findS2DArray.nextLine()); // TEST
             String[] temp1 = findS2DArray.nextLine().split(" "); // "\\s+"
             if (temp1.length == 1) {
                 find2DArray[findLineIndex][0] = "******";
@@ -94,7 +94,7 @@ public class FileInput {
         }
     }
 
-    private void print2DArrays(String[][] array2D) {
+    private void print2DArrays(String[][] array2D) { // TEST
         for (String[] array : array2D) {
             for (String s : array) {
                 System.out.print(s + " ");
@@ -103,11 +103,11 @@ public class FileInput {
         }
     }
 
-    public ArrayList<String> getFindList() {
+    public ArrayList<String> getFindArrayList() {
         return findArrayList;
     }
 
-    public ArrayList<String> getDirectoryList() {
+    public ArrayList<String> getDirectoryArrayList() {
         return directoryArrayList;
     }
 
@@ -117,5 +117,9 @@ public class FileInput {
 
     public String[][] getDirectory2DArray() {
         return directory2DArray;
+    }
+
+    public long getInputMillis() {
+        return inputMillis;
     }
 }

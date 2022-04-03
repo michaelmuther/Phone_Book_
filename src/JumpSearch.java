@@ -1,37 +1,57 @@
-import java.util.ArrayList;
+
 
 public class JumpSearch extends SearchAlgorithm{
 
     int step;
-    ArrayList<String> find, directory;
+    private final String SEARCH_NAME = "jump";
 
-    public JumpSearch(ArrayList<String> find, ArrayList<String> directory) {
-        final String START = "Start searching (jump search)...";
+    String[][] find, directory;
+
+    public JumpSearch(String[][] find, String[][] directory) {
         this.find = find;
         this.directory = directory;
-        countToFind = find.size();
+        searchName = SEARCH_NAME;
+        countToFind = find.length;
         countFound = 0;
-        System.out.println(START);
         startMillis = System.currentTimeMillis();
         jumpSearch();
         endMillis = System.currentTimeMillis();
         searchMillis = endMillis - startMillis;
-        printSearchResults();
     }
 
     private void jumpSearch() {
-        step = (int) Math.floor(Math.sqrt(directory.size()));
-//        System.out.println(step);
-
-        for (String f : find) {
-            int curr = 0;
-            while (curr < directory.size()) {
-                if (directory.get(curr).contains(f)) {
+        step = (int) Math.floor(Math.sqrt(directory.length));
+//        System.out.println(step); // TEST
+        for (String[] f : find) {
+            int current = 0;
+            outerloop:
+            while (current < directory.length) {
+//                System.out.println(f[1] + " - " + directory[current][2]); // TEST
+                int tempCompare = f[1].compareTo(directory[current][2]);
+                if (tempCompare == 0) {
                     countFound++;
-                    break;
+                    break outerloop;
+                } else if (tempCompare < 0) { // if find last name is greater than directory last name, then sweep back through;
+                    for (int i = current - step + 1; i < current; i++) {
+//                        System.out.println("SWEEP: " + f[1] + " - " + directory[i][2]); // TEST
+                        if (f[1].compareTo(directory[i][2]) == 0) {
+                            countFound++;
+                            break outerloop;
+                        }
+                    }
+                } else {
+                    current += step; // increase current and try again
+                    if (current > directory.length) {
+                        for (int i = current - step + 1; i < directory.length; i++) {
+//                            System.out.println("SWEEP at END: " + f[1] + " - " + directory[i][2]); // TEST
+                            if (f[1].compareTo(directory[i][2]) == 0) {
+                                countFound++;
+                                break outerloop;
+                            }
+                        }
+                    }
                 }
             }
         }
     }
-
 }
