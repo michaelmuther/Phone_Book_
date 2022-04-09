@@ -6,24 +6,38 @@ public class Main {
 
         File find = new File("/Users/michaelmuther/Desktop/Phone_Book_/src/find.txt");
         File directory = new File("/Users/michaelmuther/Desktop/Phone_Book_/src/directory.txt");
-        FileInput f = new FileInput(find, directory);
+        FileInput f1 = new FileInput(find, directory);
         new ConsoleOutput().printSearchStart("linear");
-        LinearSearch a2d = new LinearSearch(f.getFind2DArray(), f.getDirectory2DArray());
-        new ConsoleOutput().printSearchResultsFoundAndTime(a2d.getCountFound(), a2d.getCountToFind(), a2d.getSearchMillis() + f.getInputMillis());
+        LinearSearch ls1 = new LinearSearch(f1.getFind2DArray(), f1.getDirectory2DArray());
+        new ConsoleOutput().printSearchResultsFoundAndTime(ls1.getCountFound(), ls1.getCountToFind(), ls1.getSearchMillis() + f1.getInputMillis());
         System.out.println();
+//        new ConsoleOutput().printSortSearchStart("bubble", "jump");
         new ConsoleOutput().printSortSearchStart("bubble", "jump");
-        BubbleSort bs = new BubbleSort(f.getFind2DArray(), f.getDirectory2DArray());
+        BubbleSort bs = new BubbleSort(f1.getFind2DArray(), f1.getDirectory2DArray());
         if (bs.isValid()) {
-            JumpSearch js = new JumpSearch(f.getFind2DArray(), f.getDirectory2DArray());
+            JumpSearch js = new JumpSearch(f1.getFind2DArray(), f1.getDirectory2DArray());
             new ConsoleOutput().printSearchResultsFoundAndTime(js.getCountFound(), js.getCountToFind(), js.getSearchMillis() + bs.getSortMillis());
             new ConsoleOutput().printSortResultTime(bs.getSortMillis());
             new ConsoleOutput().printSearchResultTime(js.getSearchMillis());
         } else {
-            LinearSearch a2d2 = new LinearSearch(f.getFind2DArray(), f.getDirectory2DArray());
-            new ConsoleOutput().printSearchResultsFoundAndTime(a2d2.getCountFound(), a2d2.getCountToFind(), a2d2.getSearchMillis() + bs.getSortMillis());
+            LinearSearch ls2 = new LinearSearch(f1.getFind2DArray(), f1.getDirectory2DArray());
+            new ConsoleOutput().printSearchResultsFoundAndTime(ls2.getCountFound(), ls2.getCountToFind(), ls2.getSearchMillis() + bs.getSortMillis());
             new ConsoleOutput().printSortResultTimeError(bs.getSortMillis(), "linear"); // set this up
-            new ConsoleOutput().printSearchResultTime(a2d2.getSearchMillis());
+            new ConsoleOutput().printSearchResultTime(ls2.getSearchMillis());
         }
+        System.out.println();
+        FileInput f2 = new FileInput(find, directory);
+        new ConsoleOutput().printSortSearchStart("quick", "binary");
+        QuickSort qSort = new QuickSort(f2.getFind2DArray(), f2.getDirectory2DArray());
+        BinarySearch bSearch = new BinarySearch(f2.getFind2DArray(), f2.getDirectory2DArray());
+        new ConsoleOutput().printSearchResultsFoundAndTime(bSearch.getCountFound(), bSearch.getCountToFind(), bSearch.getSearchMillis() + qSort.getSortMillis() + f2.getInputMillis());
+        new ConsoleOutput().printSortResultTime(qSort.getSortMillis() + f2.getInputMillis());
+        new ConsoleOutput().printSearchResultTime(bSearch.getSearchMillis());
     }
 }
+
+//            BinarySearch bSearch = new BinarySearch(f.getFind2DArray(), f.getDirectory2DArray());
+//            new ConsoleOutput().printSearchResultsFoundAndTime(bSearch.getCountFound(), bSearch.getCountToFind(), bSearch.getSearchMillis() + bs.getSortMillis());
+//            new ConsoleOutput().printSortResultTime(bs.getSortMillis());
+//            new ConsoleOutput().printSearchResultTime(bSearch.getSearchMillis());
 
