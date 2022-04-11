@@ -52,4 +52,15 @@ public class ConsoleOutput {
         minSecMS[2] = millis - minSecMS[0] * MS_IN_MIN - minSecMS[1] * MS_IN_SEC; // milliseconds
         return minSecMS;
     }
+
+    public void printCreateHashTime(long searchMillis) {
+        final String OUTPUT = "Creating time: %d min. %d sec. %d ms.\n";
+        long[] minSecMS = convertMStoMinSecMS(searchMillis);
+        System.out.printf(OUTPUT, minSecMS[0], minSecMS[1], minSecMS[2]);
+    }
+
+    public void printHashStart() {
+        final String START_SEARCH = "Start searching (hash table)...\n";
+        System.out.printf(START_SEARCH);
+    }
 }

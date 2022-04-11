@@ -7,11 +7,12 @@ public class Main {
         File find = new File("/Users/michaelmuther/Desktop/Phone_Book_/src/find.txt");
         File directory = new File("/Users/michaelmuther/Desktop/Phone_Book_/src/directory.txt");
         FileInput f1 = new FileInput(find, directory);
+        //-------linear search---------
         new ConsoleOutput().printSearchStart("linear");
         LinearSearch ls1 = new LinearSearch(f1.getFind2DArray(), f1.getDirectory2DArray());
         new ConsoleOutput().printSearchResultsFoundAndTime(ls1.getCountFound(), ls1.getCountToFind(), ls1.getSearchMillis() + f1.getInputMillis());
         System.out.println();
-//        new ConsoleOutput().printSortSearchStart("bubble", "jump");
+        //-------bubble sort-jump search------
         new ConsoleOutput().printSortSearchStart("bubble", "jump");
         BubbleSort bs = new BubbleSort(f1.getFind2DArray(), f1.getDirectory2DArray());
         if (bs.isValid()) {
@@ -26,6 +27,7 @@ public class Main {
             new ConsoleOutput().printSearchResultTime(ls2.getSearchMillis());
         }
         System.out.println();
+        //------quick sort and binary search
         FileInput f2 = new FileInput(find, directory);
         new ConsoleOutput().printSortSearchStart("quick", "binary");
         QuickSort qSort = new QuickSort(f2.getFind2DArray(), f2.getDirectory2DArray());
@@ -33,6 +35,13 @@ public class Main {
         new ConsoleOutput().printSearchResultsFoundAndTime(bSearch.getCountFound(), bSearch.getCountToFind(), bSearch.getSearchMillis() + qSort.getSortMillis() + f2.getInputMillis());
         new ConsoleOutput().printSortResultTime(qSort.getSortMillis() + f2.getInputMillis());
         new ConsoleOutput().printSearchResultTime(bSearch.getSearchMillis());
+        System.out.println();
+        //----------hash table--------
+        new ConsoleOutput().printHashStart();
+        HashTable ht = new HashTable(f2.getFind2DArray(), f2.getDirectory2DArray());
+        new ConsoleOutput().printSearchResultsFoundAndTime(ht.getCountFound(), ht.getCountToFind(), ht.getHashCreationMillis() + ht.getSearchMillis());
+        new ConsoleOutput().printCreateHashTime(ht.getHashCreationMillis());
+        new ConsoleOutput().printSearchResultTime(ht.getSearchMillis());
     }
 }
 

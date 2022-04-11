@@ -51,6 +51,4 @@ public class QuickSort extends SortAlgorithm {
             System.out.println();
         }
     }
-
-
 }
